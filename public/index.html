@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panadería La Desesperanza - Inventario de Panes</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: #f5f5f5;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #333;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    /* Header Simple */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      color: #333;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    header small {
+      color: #666;
+      font-size: 0.875rem;
+    }
+
+    .btn-header {
+      background: #fff;
+      color: #333;
+      border: 1px solid #ddd;
+      transition: all 0.2s;
+    }
+
+    .btn-header:hover {
+      background: #f5f5f5;
+      border-color: #ccc;
+    }
+
+    /* Cards Simple */
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      background: white;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Tabla Simple */
+    .table-responsive {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid #ddd;
+    }
+
+    .table thead {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .table thead th {
+      border: none;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .table tbody tr {
+      transition: all 0.2s;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .table tbody tr:hover {
+      background: #f9f9f9;
+    }
+
+    .table tbody td {
+      vertical-align: middle;
+      padding: 12px;
+    }
+
+    /* Botones Simple */
+    .btn {
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-weight: 500;
+      transition: all 0.2s;
+      border: none;
+      font-size: 0.875rem;
+    }
+
+    .btn-success {
+      background: #28a745;
+    }
+
+    .btn-success:hover {
+      background: #218838;
+    }
+
+    .btn-warning {
+      background: #ffc107;
+      color: #333;
+    }
+
+    .btn-warning:hover {
+      background: #e0a800;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+    }
+
+    .btn-danger:hover {
+      background: #c82333;
+    }
+
+    .btn-primary {
+      background: #007bff;
+    }
+
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Modal Simple */
+    .modal-content {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .modal-header {
+      background: #f5f5f5;
+      color: #333;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .modal-body {
+      padding: 20px;
+      background: white;
+    }
+
+    .form-control, .form-select {
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .form-label {
+      color: #666;
+      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 0.875rem;
+    }
+
+    /* Section Titles Simple */
+    .section-title {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid #ddd;
+    }
+
+    .section-title h2 {
+      color: #333;
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+
+    .section-title p {
+      color: #666;
+      font-size: 0.875rem;
+    }
+
+    /* Gallery Cards Simple */
+    .gallery-card {
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .gallery-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+    }
+
+    .gallery-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .gallery-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      color: white;
+      z-index: 1;
+    }
+
+    .gallery-content h5 {
+      font-weight: 600;
+    }
+
+    /* Footer Simple */
+    footer {
+      background: #333;
+      margin-top: 40px;
+      border-top: 1px solid #444;
+    }
+
+    footer p, footer small {
+      color: #ccc !important;
+    }
+
+    /* Badge Simple */
+    .badge {
+      border-radius: 12px;
+      font-size: 0.75rem;
+      padding: 0.35em 0.6em;
+      font-weight: 600;
+    }
+
+    /* Imagen de producto */
+    .product-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    /* Dropdown Simple */
+    .dropdown-menu {
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 5px;
+    }
+
+    .dropdown-item {
+      border-radius: 4px;
+      padding: 10px 15px;
+      transition: all 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background: #f5f5f5;
+    }
+
+    /* Auth overlay simple */
+    #authOverlay .card {
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    #authOverlay .card-body {
+      padding: 40px !important;
+    }
+
+    #authOverlay h2 {
+      font-size: 1.75rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    #authOverlay .btn {
+      padding: 12px;
+      font-size: 0.875rem;
+    }
+
+    #authOverlay a {
+      color: #007bff;
+      transition: all 0.2s;
+    }
+
+    #authOverlay a:hover {
+      color: #0056b3;
+    }
+
+    /* Divider simple */
+    hr {
+      border: none;
+      height: 1px;
+      background: #ddd;
+      margin: 20px 0;
+    }
+
+    /* Alert simple */
+    .alert {
+      border-radius: 6px;
+      border: 1px solid;
+    }
+
+    .alert-danger {
+      border-color: #dc3545;
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .alert-success {
+      border-color: #28a745;
+      background: #d4edda;
+      color: #155724;
+    }
+
+    /* Scroll simple */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f5f5f5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #999;
+    }
+  </style>
+</head>
+<body>
+  <header class="text-center py-4 mb-5 position-relative">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="text-start">
+          <h1 class="mb-1">Panadería La Desesperanza</h1>
+          <small>Panes de Temporada · Día de Muertos & Halloween</small>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <button id="btnConocenos" class="btn btn-header btn-sm shadow-sm" title="Conócenos">
+            <i class="bi bi-book"></i> Conócenos
+          </button>
+          <button id="btnCarrito" class="btn btn-header btn-sm position-relative shadow-sm" title="Ver carrito">
+            <i class="bi bi-cart3"></i> Carrito
+            <span id="badgeCarrito" class="badge bg-danger position-absolute top-0 start-100 translate-middle" style="display:none;">0</span>
+          </button>
+          <div class="dropdown">
+            <button id="btnPerfil" class="btn btn-header btn-sm dropdown-toggle shadow-sm" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle"></i> Perfil
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow" id="perfilDropdown">
+              <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Overlay Login/Register con fondo negro -->
+  <div id="authOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; z-index: 99999; overflow: hidden; background: #000;">
+      
+      <!-- Contenedor del formulario -->
+      <div class="container" style="position: relative; z-index: 100;">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
+            
+            <div class="card shadow-lg" style="background: white; animation: fadeInUp 0.5s ease;">
+              <div class="card-body">
+                
+                <div class="text-center mb-4">
+                  <h2 id="authTitle" class="fw-bold">Crear Cuenta</h2>
+                  <p class="text-muted">Únete a la panadería</p>
+                </div>
+
+                <!-- Formulario de registro -->
+                <form id="formRegister">
+                  <input type="hidden" name="rol" id="rolInput" value="cliente">
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold"><i class="bi bi-person"></i> Nombre</label>
+                    <input name="nombre" id="regNombre" class="form-control" placeholder="Tu nombre completo" required />
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold"><i class="bi bi-envelope"></i> Email</label>
+                    <input name="email" id="regEmail" type="email" class="form-control" placeholder="correo@ejemplo.com" required />
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold"><i class="bi bi-lock"></i> Contraseña</label>
+                    <input name="password" id="regPassword" type="password" class="form-control" placeholder="••••••••" required />
+                  </div>
+                  <button class="btn btn-warning w-100 mb-4" type="submit">
+                    <i class="bi bi-check-circle"></i> Registrarme
+                  </button>
+                  <div class="text-center">
+                    <a href="#" id="switchToLogin" class="text-decoration-none">
+                      ¿Ya tienes cuenta? Iniciar sesión
+                    </a>
+                  </div>
+                  <div id="authError" class="alert alert-danger mt-3 d-none"></div>
+                </form>
+
+                <!-- Formulario de login -->
+                <form id="formLogin" class="d-none">
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold"><i class="bi bi-envelope"></i> Email</label>
+                    <input id="logEmail" type="email" class="form-control" placeholder="correo@ejemplo.com" required />
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold"><i class="bi bi-lock"></i> Contraseña</label>
+                    <input id="logPassword" type="password" class="form-control" placeholder="••••••••" required />
+                  </div>
+                  <button class="btn btn-success w-100 mb-4" type="submit">
+                    <i class="bi bi-box-arrow-in-right"></i> Iniciar sesión
+                  </button>
+                  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <a href="#" id="switchToRegister" class="text-decoration-none">
+                      Crear cuenta
+                    </a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#modalReset" class="text-decoration-none">
+                      ¿Olvidaste tu contraseña?
+                    </a>
+                  </div>
+                  <div id="loginError" class="alert alert-danger mt-3 d-none"></div>
+                </form>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <main class="container animate-fade-in" id="mainApp" style="display:none;">
+    <div class="section-title">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="mb-2"><i class="bi bi-basket3-fill"></i> Inventario de Panes</h2>
+          <p class="text-muted mb-0">Administra tu catálogo de productos</p>
+        </div>
+        <div class="col-md-4 text-end">
+          <button id="btnAgregarPan" class="btn btn-success shadow" data-bs-toggle="modal" data-bs-target="#modalProducto">
+            <i class="bi bi-plus-circle-fill"></i> Agregar Pan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive animate-fade-in">
+      <table class="table table-hover align-middle" id="tablaProductos">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="section-title mt-5">
+      <h2 class="mb-2"><i class="bi bi-images"></i> Galería de Panes de Temporada</h2>
+      <p class="text-muted mb-0">Descubre nuestras especialidades artesanales</p>
+    </div>
+    <div class="row g-4 animate-fade-in" id="galeria"></div>
+  </main>
+
+  <!-- Modal producto -->
+  <div class="modal fade" id="modalProducto" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form id="formProducto" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold"><i class="bi bi-pencil-square"></i> Agregar / Editar Pan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-4">
+            <input type="hidden" id="id_producto" name="id_producto">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label for="nombre" class="form-label fw-semibold"><i class="bi bi-tag"></i> Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+              </div>
+              <div class="col-md-6">
+                <label for="precio" class="form-label fw-semibold"><i class="bi bi-currency-dollar"></i> Precio ($)</label>
+                <input type="number" class="form-control" id="precio" name="precio" min="1" step="0.01" required>
+              </div>
+              <div class="col-md-6">
+                <label for="stock" class="form-label fw-semibold"><i class="bi bi-box-seam"></i> Stock</label>
+                <input type="number" class="form-control" id="stock" name="stock" min="0" required>
+              </div>
+              <div class="col-md-6">
+                <label for="imagen" class="form-label fw-semibold"><i class="bi bi-image"></i> Imagen</label>
+                <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+              </div>
+              <div class="col-12">
+                <label for="descripcion" class="form-label fw-semibold"><i class="bi bi-card-text"></i> Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+              </div>
+            </div>
+            <div id="mensajeError" class="alert alert-danger mt-3 d-none"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle-fill"></i> Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal carrito -->
+  <div class="modal fade" id="modalCarrito" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="bi bi-cart-check-fill"></i> Tu Carrito de Compras</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div id="carritoItems"></div>
+          <div class="text-end mt-4 p-4 rounded" style="background: #f5f5f5; border: 1px solid #ddd;">
+            <h4 class="mb-0 fw-bold">Total: $<span id="carritoTotal">0.00</span></h4>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btnCheckout" class="btn btn-success"><i class="bi bi-credit-card-fill"></i> Proceder al Pago</button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Conócenos -->
+  <div class="modal fade" id="modalConocenos" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="w-100">
+            <h2 class="modal-title fw-bold mb-2 text-center">🍞 Panadería La Desesperanza 🥐</h2>
+            <p class="text-center mb-0 text-muted">Horneando Felicidad Desde 2020</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        
+        <div class="modal-body p-4">
+          <div class="card mb-4">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center mb-4">
+                <div class="rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: #007bff;">
+                  <span style="font-size: 2rem;">📖</span>
+                </div>
+                <h4 class="mb-0 fw-bold">Nuestra Historia</h4>
+              </div>
+              <p class="mb-3" style="line-height: 1.8;">
+                La Panadería <strong>La Desesperanza</strong> nació en un pequeño barrio en <strong>2020</strong>,
+                con el sueño de ofrecer panes artesanales llenos de tradición y un toque de innovación.
+                Desde entonces hemos sido el rincón favorito de quienes buscan el sabor casero
+                acompañado de un buen café. ☕
+              </p>
+              <p class="mb-0" style="line-height: 1.8;">
+                Cada pan está hecho con <strong>❤️ dedicación</strong>, como si fuera para nuestra propia familia.
+                Nuestros ingredientes son seleccionados cuidadosamente y horneamos todo fresco cada día.
+              </p>
+            </div>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-md-4">
+              <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                  <div class="mb-3" style="font-size: 3rem;">🥖</div>
+                  <h5 class="fw-bold">100% Artesanal</h5>
+                  <p class="small mb-0">Cada pan es amasado y horneado con amor y paciencia</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                  <div class="mb-3" style="font-size: 3rem;">🌾</div>
+                  <h5 class="fw-bold">Ingredientes Frescos</h5>
+                  <p class="small mb-0">Usamos solo los mejores ingredientes naturales</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                  <div class="mb-3" style="font-size: 3rem;">⏰</div>
+                  <h5 class="fw-bold">Recién Horneado</h5>
+                  <p class="small mb-0">Pan fresco todos los días desde las 6:00 AM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center mb-4">
+                <div class="rounded-circle p-3 me-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: #dc3545;">
+                  <span style="font-size: 2rem;">📍</span>
+                </div>
+                <div>
+                  <h4 class="mb-0 fw-bold">Encuéntranos</h4>
+                  <p class="small mb-0 text-muted">Ven a visitarnos, ¡te esperamos con pan caliente!</p>
+                </div>
+              </div>
+              <div class="ratio ratio-16x9 rounded overflow-hidden mb-3" style="border: 2px solid #ddd;">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.642437058805!2d-99.1617437!3d19.4270202!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f92b2aa7c68f%3A0xdea9c33ec2d2a86f!2sPasteler%C3%ADa%20Ideal!5e0!3m2!1ses-419!2smx!4v1700000000000" 
+                  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+              </div>
+              <div class="p-4 rounded" style="background: #f5f5f5; border: 1px solid #ddd;">
+                <p class="mb-2"><strong>🕐 Horario:</strong> Lunes a Domingo, 6:00 AM - 8:00 PM</p>
+                <p class="mb-0"><strong>📞 Teléfono:</strong> (55) 1234-5678</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning px-5" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Gestión de Usuarios -->
+  <div class="modal fade" id="modalUsuarios" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="bi bi-people-fill"></i> Gestionar Usuarios</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="table-responsive" style="padding: 20px; background: white; box-shadow: none;">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="usuariosTabla"></tbody>
+            </table>
+          </div>
+          <hr class="my-4">
+          <div class="p-4 rounded" style="background: #f5f5f5; border: 1px solid #ddd;">
+            <h6 class="fw-bold mb-4"><i class="bi bi-person-plus-fill"></i> Agregar Nuevo Usuario</h6>
+            <form id="formNuevoUsuario" class="row g-3">
+              <div class="col-md-4">
+                <input type="text" id="nuevoNombre" class="form-control" placeholder="Nombre" required>
+              </div>
+              <div class="col-md-4">
+                <input type="email" id="nuevoEmail" class="form-control" placeholder="Email" required>
+              </div>
+              <div class="col-md-2">
+                <select id="nuevoRol" class="form-select">
+                  <option value="cliente">Cliente</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-success w-100" type="submit">
+                  <i class="bi bi-plus-circle-fill"></i> Añadir
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Reset Password -->
+  <div class="modal fade" id="modalReset" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formResetPassword">
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold"><i class="bi bi-key-fill"></i> Restablecer Contraseña</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-4">
+            <div class="mb-4">
+              <label class="form-label fw-semibold"><i class="bi bi-person"></i> Nombre</label>
+              <input type="text" id="resetNombre" name="nombre" class="form-control" required>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-semibold"><i class="bi bi-envelope"></i> Email</label>
+              <input type="email" id="resetEmail" name="email" class="form-control" required>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-semibold"><i class="bi bi-lock"></i> Nueva Contraseña</label>
+              <input type="password" id="resetPassword" name="newPassword" class="form-control" required>
+            </div>
+            <div id="resetError" class="alert alert-danger d-none"></div>
+            <div id="resetSuccess" class="alert alert-success d-none"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-circle-fill"></i> Cambiar Contraseña
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor de notificaciones -->
+  <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;"></div>
+
+  <footer class="text-white text-center py-5">
+    <div class="container">
+      <p class="mb-2"><i class="bi bi-shop"></i> Panadería La Desesperanza</p>
+      <p class="mb-2">Horneando tradición desde 2020</p>
+      <small>&copy; 2025 Todos los derechos reservados</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
