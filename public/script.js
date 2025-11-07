@@ -424,6 +424,13 @@ document.getElementById('btnCheckout').addEventListener('click', async () => {
   bootstrap.Modal.getOrCreateInstance(document.getElementById('modalCarrito')).hide();
 });
 
+function validarPassword(password) {
+  // Expresión regular:
+  // Al menos una minúscula, una mayúscula, un número y un carácter especial, y mínimo 8 caracteres
+  const regex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&#._-])[A-Za-z\d@$!%?&#._-]{8,}$/;
+  return regex.test(password);
+}
+
 // script.js
 document.addEventListener("DOMContentLoaded", () => {
   const formRegister = document.getElementById("formRegister");
@@ -441,6 +448,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!nombre || !email || !password) {
         mostrarError("Todos los campos son obligatorios.");
         return;
+      }
+
+      if (!validarPassword(password)) {
+        authError.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo especial.";
+        authError.classList.remove("d-none");
+        return;
+      } else {
+        authError.classList.add("d-none");
       }
 
       try {
