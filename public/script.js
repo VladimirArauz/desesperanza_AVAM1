@@ -450,14 +450,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (!validarPassword(password)) {
-        authError.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo especial.";
-        authError.classList.remove("d-none");
-        return;
-      } else {
-        authError.classList.add("d-none");
-      }
-
       try {
         const res = await fetch("/register", {
           method: "POST",
